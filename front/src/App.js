@@ -1,41 +1,37 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store'
+
+/**
+ * Router
+ */
+import RouterApp from './router'
+
+/**
+ * Global Styles
+ */
+import './styles/modules.scss'
+
+/**
+ * Components
+ */
+import Navbar from './components/partials/Navbar'
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      messages: [],
-    };
-  }
-
-  componentDidMount() {
-    return axios.post('http://localhost:7777/api/messages/all')
-        .then(res => {
-            this.setState({
-                messages: res.data
-            })
-        })
-        .catch(err => {
-          throw err;
-        })
-  }
-
   render() {
     return (
       <div className="App">
-        <div id="Chat">
-          {this.state.messages.length === 0 && <p>Loading messages...</p>}
-          {
-            this.state.messages.length > 0 && this.state.messages.map(message => (
-                <div key={message._id}>
-                  <p>{ message.text }</p>
-                </div>
-            ))
-          }
-        </div>
+          <Provider store={ store }>
+              <Router>
+                  <>
+                      <Navbar/>
+
+                      <RouterApp/>
+                  </>
+              </Router>
+          </Provider>
       </div>
     );
   }

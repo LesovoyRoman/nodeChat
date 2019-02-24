@@ -1,0 +1,24 @@
+/*
+  App
+*/
+$app-color-primary: #7e0d31;
+
+
+/*
+  Nav
+*/
+$nav-color: linear-gradient(to bottom, #322828, gray, white);
+
+
+/*
+  Links
+*/
+$link-color-nav: #fff;
+$link-color-nav-hover: darken($link-color-nav, 30);
+$link-color-nav-active: $app-color-primary;
+
+
+/*
+  Components
+*/
+$element-transition: .3s ease;

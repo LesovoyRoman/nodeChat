@@ -1,0 +1,25 @@
+@import "./../base/variables";
+
+nav {
+  height: 100px;
+  width: 100%;
+  background: $nav-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    color: $link-color-nav;
+    transition: $element-transition;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 0 auto;
+
+    &:hover {
+      color: $link-color-nav-hover
+    }
+    &.active {
+      color: $link-color-nav-active
+    }
+  }
+}
