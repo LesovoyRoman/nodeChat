@@ -1,0 +1,34 @@
+@import "./../base/variables";
+
+.chatWindow {
+
+  .list-messages {
+    width: 80%;
+    max-width: 500px;
+    display: block;
+    margin: 15px auto;
+    border: 3px solid $chat-border-color;
+    height: 80vh;
+    max-height: calc(100vh - 250px);
+
+    li {
+      position: relative;
+      width: 100%;
+      line-height: 30px;
+      min-height: 40px;
+      font-size: 18px;
+      color: $chat-text-color;
+      padding: 10px 10px 0;
+      border-bottom: 1px solid $chat-border-color;
+      word-break: break-all;
+
+      .message-time {
+        font-size: 10px;
+        position: absolute;
+        color: $app-color-primary;
+        right: 10px;
+        top: -5px;
+      }
+    }
+  }
+}

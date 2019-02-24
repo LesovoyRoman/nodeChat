@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+
+/**
+ * Chat components
+ */
+import ChatWindow from './partials/ChatWindow'
 
 class Chat extends Component {
     render() {
         return (
-            <h1>Chat</h1>
+            <div id="app">
+                <h1>Chat</h1>
+                <div className="chatWindow">
+                    <ChatWindow/>
+                </div>
+            </div>
         )
     }
 }

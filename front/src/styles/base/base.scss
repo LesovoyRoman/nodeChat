@@ -1,5 +1,8 @@
+@import "variables";
+
 * {
   font-family: monospace;
+  box-sizing: border-box;
 }
 
 .App {
@@ -27,4 +30,8 @@ h3 {
 
 a, p {
   font-size: 16px;
+}
+
+.primary-color {
+  color: $app-color-primary
 }

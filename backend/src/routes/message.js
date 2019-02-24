@@ -8,7 +8,9 @@ const Message = require('../models/Message');
 router.post('/all', (req, res) => {
 
     Message.find({}).then(function (messages) {
-        res.send(messages);
+        res.send({
+            messages: messages
+        });
     });
 
 });
@@ -18,7 +20,7 @@ router.post('/create_message', (req, res) => {
 
     let newMessage = new Message({
         text: req.body.text,
-        //user_id: req.body.user_id
+        user_id: req.body.user_id
     });
 
     newMessage.save()
