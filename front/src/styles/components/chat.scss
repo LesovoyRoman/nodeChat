@@ -1,15 +1,18 @@
 @import "./../base/variables";
 
 .chatWindow {
+  width: 80%;
+  max-width: 500px;
+  display: block;
+  margin: 15px auto;
+  border: 3px solid $chat-border-color;
+  height: 80vh;
+  max-height: calc(100vh - 250px);
+  position: relative;
+  overflow-y: auto;
+  padding-bottom: 40px;
 
   .list-messages {
-    width: 80%;
-    max-width: 500px;
-    display: block;
-    margin: 15px auto;
-    border: 3px solid $chat-border-color;
-    height: 80vh;
-    max-height: calc(100vh - 250px);
 
     li {
       position: relative;
@@ -29,6 +32,22 @@
         right: 10px;
         top: -5px;
       }
+    }
+  }
+
+  .chatPanel {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 40px;
+
+    .messageField {
+      width: calc(100% - 100px);
+      height: 100%;
+    }
+    .messageSubmit {
+      width: 100px;
+      height: 100%;
     }
   }
 }

@@ -4,11 +4,11 @@ import { API_REQ } from './../config'
 
 export const createMessage = (message, user_id) => dispatch => {
     return axios.post(API_REQ + '/api/messages/create_message', {
-        message: message,
+        text: message,
         user_id: user_id || 0
     })
         .then(res => {
-            return res()
+            return res
         })
         .catch(err => {
             dispatch({

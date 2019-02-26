@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { getMessages } from "./../../../actions/messages";
 import store from './../../../store'
+import ChatPanel from './ChatPanel'
 
 class ChatWindow extends Component {
     constructor(props) {
@@ -51,6 +52,9 @@ class ChatWindow extends Component {
                         ))
                     }
                 </ul>
+
+                <ChatPanel />
+
             </div>
         )
     }
