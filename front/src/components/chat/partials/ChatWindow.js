@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { getMessages } from "./../../../actions/messages";
 import store from './../../../store'
 import ChatPanel from './ChatPanel'
+import { connectSocket } from './../../../socketMessages';
 
 class ChatWindow extends Component {
     constructor(props) {
@@ -14,6 +15,14 @@ class ChatWindow extends Component {
             errors: {},
             messages: []
         }
+
+        connectSocket(message => {
+            let messagesUpdate = this.state.messages
+            messagesUpdate.unshift(message) // @todo remake
+            this.setState({
+                messages: messagesUpdate
+            })
+        })
     }
 
     componentDidMount() {
@@ -35,7 +44,7 @@ class ChatWindow extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 {this.state.messages.length === 0 && <p>Loading messages...</p>}
                 <ul className="list-messages">
                     {
@@ -55,7 +64,7 @@ class ChatWindow extends Component {
 
                 <ChatPanel />
 
-            </div>
+            </>
         )
     }
 }

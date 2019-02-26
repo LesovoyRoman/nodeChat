@@ -9,10 +9,11 @@
   height: 80vh;
   max-height: calc(100vh - 250px);
   position: relative;
-  overflow-y: auto;
   padding-bottom: 40px;
 
   .list-messages {
+    overflow-y: auto;
+    height: 100%;
 
     li {
       position: relative;

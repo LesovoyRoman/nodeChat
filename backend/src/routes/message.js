@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const socketEmitter = require('../server')
 
 // Model
 const Message = require('../models/Message');
@@ -7,7 +8,7 @@ const Message = require('../models/Message');
 // retrieve all questions
 router.post('/all', (req, res) => {
 
-    Message.find({}).then(function (messages) {
+    Message.find({}).sort( { date: -1 } ).then(function (messages) {
         res.send({
             messages: messages
         });
@@ -24,6 +25,8 @@ router.post('/create_message', (req, res) => {
     });
 
     newMessage.save()
+
+    socketEmitter.emitMessage(newMessage);
 
     res.json(newMessage)
 
