@@ -6,7 +6,7 @@ import { getMessages } from "./../../../actions/messages";
 import store from './../../../store'
 import ChatPanel from './ChatPanel'
 import { connectSocket } from './../../../socketMessages';
-import { changeFav } from "../../../helpers/functions";
+import { changeFav, notificationVoice } from "../../../helpers/functions";
 import * as APP_CONSTS from '../../../helpers/config'
 import { documentHidden } from '../../../helpers/events'
 
@@ -31,6 +31,7 @@ class ChatWindow extends Component {
              */
             if(documentHidden) {
                 changeFav(APP_CONSTS.FAV_NEW_MESSAGE, APP_CONSTS.PNG_TYPE)
+                notificationVoice(APP_CONSTS.ALERT_VOICE)
             }
         })
     }

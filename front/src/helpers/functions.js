@@ -5,3 +5,8 @@ export function changeFav(pathFav, imageType) {
     link.href = pathFav;
     document.getElementsByTagName('head')[0].appendChild(link);
 }
+
+export function notificationVoice(pathAudioFile) {
+    let audio = new Audio(pathAudioFile);
+    audio.play();
+}
