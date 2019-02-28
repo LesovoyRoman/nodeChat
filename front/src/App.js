@@ -5,6 +5,11 @@ import { Provider } from 'react-redux';
 import store from './store'
 
 /**
+ * Events
+ */
+import './helpers/events'
+
+/**
  * Router
  */
 import RouterApp from './router'

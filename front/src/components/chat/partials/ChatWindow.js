@@ -6,6 +6,9 @@ import { getMessages } from "./../../../actions/messages";
 import store from './../../../store'
 import ChatPanel from './ChatPanel'
 import { connectSocket } from './../../../socketMessages';
+import { changeFav } from "../../../helpers/functions";
+import * as APP_CONSTS from '../../../helpers/config'
+import { documentHidden } from '../../../helpers/events'
 
 class ChatWindow extends Component {
     constructor(props) {
@@ -22,6 +25,13 @@ class ChatWindow extends Component {
             this.setState({
                 messages: messagesUpdate
             })
+
+            /**
+             * Custom alert (change favicon)
+             */
+            if(documentHidden) {
+                changeFav(APP_CONSTS.FAV_NEW_MESSAGE, APP_CONSTS.PNG_TYPE)
+            }
         })
     }
 
