@@ -1,5 +1,5 @@
 import { changeFav } from "./functions";
-import * as APP_CONSTS from './config'
+import * as APP_CONSTS from './../config'
 
 export let documentHidden = false;
 

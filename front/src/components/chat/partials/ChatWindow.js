@@ -7,7 +7,7 @@ import store from './../../../store'
 import ChatPanel from './ChatPanel'
 import { connectSocket } from './../../../socketMessages';
 import { changeFav, notificationVoice } from "../../../helpers/functions";
-import * as APP_CONSTS from '../../../helpers/config'
+import * as APP_CONSTS from '../../../config'
 import { documentHidden } from '../../../helpers/events'
 
 class ChatWindow extends Component {

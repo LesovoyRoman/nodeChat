@@ -1,5 +1,6 @@
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:7777/');
+import { API_REQ } from './config'
+const socket = openSocket(API_REQ);
 
 function connectSocket(cb) {
     // listen for any messages coming through
