@@ -1,3 +1,5 @@
+const CONFIG = require('./config')
+
 module.exports = {
-    DB: 'mongodb://localhost:27017/auth'
+    DB: 'mongodb://' + CONFIG.DOMAIN + ':' + CONFIG.DB_PORT + '/' + CONFIG.DB_TABLE
 }
