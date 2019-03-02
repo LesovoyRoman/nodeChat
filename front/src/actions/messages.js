@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_MESSAGES } from "./types";
 import { API_REQ } from './../config'
+import { API_ROUTES } from './../apiRoutes'
 
 /**
  * Create new message and send to api
@@ -9,13 +10,13 @@ import { API_REQ } from './../config'
  */
 export const createMessage = (message, user_id) => async (dispatch) =>  {
     try {
-        let res = await axios.post(API_REQ + '/api/messages/create_message', {
+        let res = await axios.post(API_REQ + API_ROUTES.MESSAGES.CREATE_MESSAGE, {
             text: message,
             user_id: user_id || 0
         });
         return Promise.resolve(res)
     } catch (err) {
-        console.error('createMessage', err)
+        console.error(API_ROUTES.MESSAGES.CREATE_MESSAGE, err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -51,12 +52,12 @@ export const setNewMessage = (message, messages) => dispatch => {
  */
 export const getMessages = async (dispatch) => {
     try {
-        let res = await axios.post(API_REQ + '/api/messages/all')
+        let res = await axios.post(API_REQ + API_ROUTES.MESSAGES.GET_MESSAGES)
         return dispatch(
             setMessages(res.data.messages)
         )
     } catch (err) {
-        console.error('getMessages', err)
+        console.error(API_ROUTES.MESSAGES.GET_MESSAGES, err)
         return dispatch({
             type: GET_ERRORS,
             payload: err
