@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { getMessages } from "./../../../actions/messages";
+import { getMessages, setNewMessage } from "./../../../actions/messages";
 import store from './../../../store'
 import ChatPanel from './ChatPanel'
 import { connectSocket } from './../../../socketMessages';
@@ -20,14 +20,14 @@ class ChatWindow extends Component {
         }
 
         connectSocket(message => {
-            let messagesUpdate = this.state.messages
-            messagesUpdate.unshift(message) // @todo remake
-            this.setState({
-                messages: messagesUpdate
-            })
+            /**
+             * Dispatch new message to state
+             */
+            store.dispatch(setNewMessage(message, this.state.messages))
 
             /**
              * Custom alert (change favicon)
+             * (works if you are not on this tab in browser)
              */
             if(documentHidden) {
                 changeFav(APP_CONSTS.FAV_NEW_MESSAGE, APP_CONSTS.PNG_TYPE)
@@ -42,8 +42,8 @@ class ChatWindow extends Component {
 
     componentWillReceiveProps(prop){
         if(prop.messages_received) {
-            this.setState({
-                messages: prop.messages_received.messages
+            this.setState(state => {
+                state.messages = prop.messages_received.messages
             })
         }
         if(prop.errors) {
@@ -59,7 +59,7 @@ class ChatWindow extends Component {
                 {this.state.messages.length === 0 && <p>Loading messages...</p>}
                 <ul className="list-messages">
                     {
-                        this.state.messages && this.state.messages.map(message => (
+                        this.state.messages && this.state.messages.map((message, index) => (
                             <li key={ message._id }>
                                 {
                                     typeof message.user !== 'undefined' ?
@@ -85,7 +85,8 @@ ChatWindow.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    messages_received: state.messages
+    messages_received: state.messages,
+    errors: state.errors,
 })
 
 export default connect(mapStateToProps)(withRouter(ChatWindow));

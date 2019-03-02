@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import * as APP_CONSTS from './config'
 import * as serviceWorker from './serviceWorker';
 
-
+/**
+ * Remove console errors on production
+ */
+if(APP_CONSTS.APP_ENV === APP_CONSTS.PROD_ENV) {
+    console.error = function(){};
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

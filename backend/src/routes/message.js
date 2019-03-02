@@ -2,33 +2,52 @@ const express = require('express');
 const router = express.Router();
 const socketEmitter = require('../server')
 
-// Model
+/**
+ * Model
+ */
 const Message = require('../models/Message');
 
-// retrieve all questions
-router.post('/all', (req, res) => {
+/**
+ * retrieve all questions
+ */
+router.post('/all', async (req, res) => {
 
-    Message.find({}).sort( { date: -1 } ).then(function (messages) {
-        res.send({
+    try {
+        
+        let messages = await Message.find({}).sort( { date: -1 } )
+
+        return res.status(200).send({
             messages: messages
         });
-    });
+        
+    } catch (err) {
+        return res.status(500).send(err)
+    }
 
 });
 
-// add new message
-router.post('/create_message', (req, res) => {
+/**
+ * add new message
+ */
+router.post('/create_message', async (req, res) => {
 
-    let newMessage = new Message({
-        text: req.body.text,
-        user_id: req.body.user_id
-    });
+    try {
 
-    newMessage.save()
+        let newMessage = await new Message({
+            text: req.body.text,
+            user_id: req.body.user_id
+        });
 
-    socketEmitter.emitMessage(newMessage);
+        newMessage.save()
 
-    res.json(newMessage)
+        socketEmitter.emitMessage(newMessage);
+
+        return res.status(201).send(newMessage)
+
+    } catch (err) {
+        return res.status(500).send(err)
+    }
+
 
 });
 

@@ -14,17 +14,16 @@ class ChatPanel extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit = e => {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        this.props.createMessage(this.state.message).then(res => {
+        try {
+            let res = await this.props.createMessage(this.state.message)
             this.setState({
                 message: ''
             })
-            Promise.resolve(res);
-        }).catch(err => {
+        } catch (err) {
             console.error(err)
-            Promise.reject(err)
-        })
+        }
     }
 
     handleInputChange = e =>

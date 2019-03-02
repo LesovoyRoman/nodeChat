@@ -11,6 +11,13 @@ import alertVoice from './files/audio/message-alert.wav'
 
 export const
     /**
+     * App
+     */
+    PROD_ENV = 'production',
+    DEV_ENV = 'development',
+    APP_ENV = DEV_ENV,
+
+    /**
      * API
      */
     API_PORT = 7777,
@@ -33,4 +40,4 @@ export const
     /**
      * Audio
      */
-    ALERT_VOICE = alertVoice,
+    ALERT_VOICE = alertVoice;
