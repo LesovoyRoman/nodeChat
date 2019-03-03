@@ -2,13 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { getMessages, setNewMessage } from "./../../../actions/messages";
+import { getMessages } from "./../../../actions/messages";
+import { setChatId } from './../../../actions/chat'
 import store from './../../../store'
 import ChatPanel from './ChatPanel'
-import { connectSocket } from './../../../socketMessages';
-import { changeFav, notificationVoice } from "../../../helpers/functions";
-import * as APP_CONSTS from '../../../config'
-import { documentHidden } from '../../../helpers/events'
+import Preloader from './../../partials/Preloader'
 
 class ChatWindow extends Component {
     constructor(props) {
@@ -16,34 +14,27 @@ class ChatWindow extends Component {
 
         this.state = {
             errors: {},
+            chatId: props.match.params.id,
+            userName: '',
             messages: []
-        }
-
-        connectSocket(message => {
-            /**
-             * Dispatch new message to state
-             */
-            store.dispatch(setNewMessage(message, this.state.messages))
-
-            /**
-             * Custom alert (change favicon)
-             * (works if you are not on this tab in browser)
-             */
-            if(documentHidden) {
-                changeFav(APP_CONSTS.FAV_NEW_MESSAGE, APP_CONSTS.PNG_TYPE)
-                notificationVoice(APP_CONSTS.ALERT_VOICE)
-            }
-        })
-    }
-
-    componentDidMount() {
-        store.dispatch(getMessages);
+        };
+        
+        store.dispatch(setChatId(props.match.params.id));
+        store.dispatch(getMessages(props.match.params.id));
     }
 
     componentWillReceiveProps(prop){
-        if(prop.messages_received) {
-            this.setState(state => {
-                state.messages = prop.messages_received.messages
+        /**
+         * Messages received
+         */
+        if(prop.messagesReceived) {
+            this.setState({
+                messages: prop.messagesReceived.messages
+            })
+        }
+        if(prop.userNameReceived) {
+            this.setState({
+                userName: prop.userNameReceived.userName
             })
         }
         if(prop.errors) {
@@ -56,14 +47,14 @@ class ChatWindow extends Component {
     render() {
         return (
             <>
-                {this.state.messages.length === 0 && <p>Loading messages...</p>}
+                {this.state.messages.length === 0 && <Preloader/>}
                 <ul className="list-messages">
                     {
                         this.state.messages && this.state.messages.map((message, index) => (
                             <li key={ message._id }>
                                 {
                                     typeof message.user !== 'undefined' ?
-                                        <span className="primary-color">{ message.user }</span>
+                                        <span className="primary-color">{ message.user_name }</span>
                                         :
                                         <span className="primary-color">Stranger</span>
                                 }: { message.text }
@@ -81,12 +72,14 @@ class ChatWindow extends Component {
 }
 
 ChatWindow.propTypes = {
-    messages_received: PropTypes.object.isRequired
+    messagesReceived: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    messages_received: state.messages,
-    errors: state.errors,
+    messagesReceived: state.messages,
+    userNameReceived: state.userName,
+    chatIdReceived: state.chatId,
+    errors: state.errors
 })
 
 export default connect(mapStateToProps)(withRouter(ChatWindow));

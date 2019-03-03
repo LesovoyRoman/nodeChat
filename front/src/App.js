@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store'
+import { setUserName } from './actions/user'
+import ConnectSocketMessanger from './components/chat/ConnectSocketMessanger'
+
 
 /**
  * Events
@@ -25,15 +27,29 @@ import './styles/modules.scss'
 import Navbar from './components/partials/Navbar'
 
 class App extends Component {
+
+    /**
+     * Set user name
+     */
+    componentDidMount() {
+        let userName = prompt('Type your name');
+        (async () => {
+            store.dispatch(setUserName(userName))
+        })();
+    }
+
   render() {
     return (
       <div className="App">
           <Provider store={ store }>
               <Router>
                   <>
+                      <ConnectSocketMessanger/>
                       <Navbar/>
 
-                      <RouterApp/>
+                      <div className="content">
+                          <RouterApp/>
+                      </div>
                   </>
               </Router>
           </Provider>

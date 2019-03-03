@@ -6,12 +6,17 @@ const MessageSchema = new Schema({
 
     text: {
         type: String,
+        required: true,
+        min: 1
+    },
+    chat_id: {
+        type: Schema.ObjectId,
         required: true
     },
-    // user_id: {
-    //     type: Schema.ObjectId,
-    //     required: true
-    // },
+    user_name: {
+        type: String,
+        required: false
+    },
     date: {
         type: Date,
         default: Date.now

@@ -3,6 +3,7 @@
  */
 import HomePage from './../components/pages/Home'
 import Chat from './../components/chat/Chat'
+import ChatRooms from './../components/pages/ChatRooms'
 
 /**
  * Option "navbarUse" - uses in navbar as links
@@ -19,8 +20,14 @@ export const routes = [
     },
     {
         name: 'Chat',
-        path: '/chat',
+        path: '/chat/:id',
         component: Chat,
+        navbarUse: false
+    },
+    {
+        name: 'Rooms',
+        path: '/rooms',
+        component: ChatRooms,
         navbarUse: true
     }
 ];

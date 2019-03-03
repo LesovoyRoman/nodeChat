@@ -5,14 +5,14 @@ import { API_ROUTES } from './../apiRoutes'
 
 /**
  * Create new message and send to api
- * @param message
- * @param user_id
+ * @param payload
  */
-export const createMessage = (message, user_id) => async (dispatch) =>  {
+export const createMessage = payload => async dispatch =>  {
     try {
         let res = await axios.post(API_REQ + API_ROUTES.MESSAGES.CREATE_MESSAGE, {
-            text: message,
-            user_id: user_id || 0
+            text: payload.message,
+            chat_id: payload.chatId,
+            user_name: payload.userName || 'Stranger'
         });
         return Promise.resolve(res)
     } catch (err) {
@@ -21,24 +21,22 @@ export const createMessage = (message, user_id) => async (dispatch) =>  {
             type: GET_ERRORS,
             payload: err
         });
-        return Promise.reject(err)
     }
 }
 
 /**
  * Add to messages the new message
- * @param message
- * @param messages
+ * @param payload
  */
-export const setNewMessage = (message, messages) => dispatch => {
+export const setNewMessage = payload => dispatch => {
     try {
-        messages.unshift(message)
-        return dispatch(
-            setMessages(messages)
+        payload.messages.unshift(payload.message)
+        dispatch(
+            setMessages(payload.messages)
         )
-        
     } catch (err) {
-        return dispatch({
+        console.error('setNewMessage', err)
+        dispatch({
             type: GET_ERRORS,
             payload: err
         })
@@ -47,18 +45,20 @@ export const setNewMessage = (message, messages) => dispatch => {
 
 /**
  * Get all messages from api
- * @param dispatch
+ * @param chatId
  * @returns {Promise|Promise.<T>}
  */
-export const getMessages = async (dispatch) => {
+export const getMessages = chatId => async dispatch => {
     try {
-        let res = await axios.post(API_REQ + API_ROUTES.MESSAGES.GET_MESSAGES)
-        return dispatch(
+        let res = await axios.post(API_REQ + API_ROUTES.MESSAGES.GET_MESSAGES, {
+            chat_id: chatId
+        })
+        dispatch(
             setMessages(res.data.messages)
         )
     } catch (err) {
         console.error(API_ROUTES.MESSAGES.GET_MESSAGES, err)
-        return dispatch({
+        dispatch({
             type: GET_ERRORS,
             payload: err
         });
@@ -71,6 +71,7 @@ export const getMessages = async (dispatch) => {
  * @returns {{type, payload: *}}
  */
 export const setMessages = messages => {
+    //console.log('messages', messages)
     return {
         type: SET_MESSAGES,
         payload: messages

@@ -7,7 +7,9 @@ class ChatPanel extends Component {
         super(props)
 
         this.state = {
-            message: ''
+            message: '',
+            chatId: '',
+            userName: ''
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -17,12 +19,39 @@ class ChatPanel extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let res = await this.props.createMessage(this.state.message)
+            /**
+             * Validate length of message
+             */
+            if(this.state.message.trim().length === 0) return;
+            
+            let res = await this.props.createMessage({
+                message: this.state.message,
+                chatId: this.state.chatId,
+                userName: this.state.userName
+            })
             this.setState({
                 message: ''
             })
         } catch (err) {
             console.error(err)
+        }
+    }
+
+    componentWillReceiveProps(prop){
+        if(prop.errors) {
+            this.setState({
+                errors: prop.errors
+            })
+        }
+        if(prop.userNameReceived) {
+            this.setState({
+                userName: prop.userNameReceived.userName
+            })
+        }
+        if(prop.chatIdReceived) {
+            this.setState({
+                chatId: prop.chatIdReceived.chatId
+            })
         }
     }
 
@@ -50,6 +79,8 @@ class ChatPanel extends Component {
 
 const mapStateToProps = state => ({
     errors: state.errors,
+    chatIdReceived: state.chatId,
+    userNameReceived: state.userName
 })
 
 export default connect(mapStateToProps, { createMessage })(ChatPanel);

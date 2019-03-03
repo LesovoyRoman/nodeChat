@@ -1,6 +1,6 @@
 module.exports = {
-    emitMessage(message) {
-        return io.emit('message', message)
+    emitEvent(data) {
+        return io.emit('updateData', data)
     }
 }
 
@@ -13,15 +13,18 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 const CONFIG = require('./config')
+const ROUTES = require('./routes/all')
 const db = require('./db');
-
-// define the Express app & socket.io
 const app = express();
 
-// enable cors
+/**
+ * enable cors
+ */
 app.use(cors());
 
-// parse application/json content-type
+/**
+ * Parse application/json content-type
+ */
 app.use(bodyParser());
 app.use(bodyParser.json());
 
@@ -29,11 +32,14 @@ app.use(bodyParser.json());
 /**
  * Routes
  */
-//const users = require('../routes/user');
+const chats = require('./routes/chats')
 const messages = require('./routes/message');
-app.use('/api/messages', messages);
+app.use(ROUTES.API_ROUTES_MODELS.CHATS, chats)
+app.use(ROUTES.API_ROUTES_MODELS.MESSAGES, messages);
 
-// log http requests
+/**
+ * log http requests
+ */
 app.use(morgan('combined'));
 
 const server = require('http').createServer(app);
@@ -49,11 +55,8 @@ mongoose.connect(db.DB, { useNewUrlParser: true }).then(
     err => {console.log('Can not connect to the database ' + err)}
 );
 
-const PORT = process.env.PORT || 7777;
+server.listen(CONFIG.API_PORT, () => {
 
-// run server
-server.listen(PORT, () => {
-
-    console.log(`Keep calm and listen to port ${PORT}`)
+    console.log(`Keep calm and listen to port ${CONFIG.API_PORT}`)
 
 });
