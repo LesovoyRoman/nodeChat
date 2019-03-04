@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import preloaderImg from './../../images/Rolling-1s-60px.svg'
+import preloaderImg from './../../images/preloader.gif'
 
 const stylesBg = {
     width: '100%',
@@ -14,8 +14,7 @@ const stylesBg = {
 }
 
 const stylesPreloader = {
-    width: '50px',
-    height: '50px',
+    width: '100%',
 }
 
 class Preloader extends Component {

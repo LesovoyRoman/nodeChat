@@ -1,0 +1,36 @@
+.list-rooms {
+  padding: 20px 0;
+  width: 100%;
+}
+
+.link-chat {
+  width: 100%;
+  height: 40px;
+  transition: all .2s ease;
+  padding-left: 15px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  a {
+    text-decoration: none;
+    line-height: 40px;
+    font-size: 20px;
+    color: black;
+    display: block;
+  }
+}
+
+.create-room {
+  font-size: 20px;
+  border: none;
+  padding: 5px 20px;
+  cursor: pointer;
+  float: right;
+  transition: all .2s ease;
+
+  &:hover {
+    background: gray;
+  }
+}

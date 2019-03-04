@@ -53,18 +53,19 @@ class ChatRooms extends Component {
     render() {
         return (
             <>
-                <button onClick={this.createChatRoom}>Create new</button>
                 {this.state.chatRooms.length === 0 && <Preloader/>}
                    
                 <ul className="list-rooms">
                     { this.state.chatRooms && this.state.chatRooms.map((chat, index) => (
-                        <li key={ chat._id }>
-                            <Link key={ chat._id } className="link-chat" to={ '/chat/' + chat._id }>
+                        <li key={ chat._id } className="link-chat" >
+                            <Link key={ chat._id } to={ '/chat/' + chat._id }>
                                 { chat.name }
                             </Link>
                         </li>
                     )) }
                 </ul>
+
+                <button onClick={this.createChatRoom} className="create-room">Create new</button>
             </>
         )
     }

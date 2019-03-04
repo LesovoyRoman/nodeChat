@@ -53,7 +53,7 @@ class ChatWindow extends Component {
                         this.state.messages && this.state.messages.map((message, index) => (
                             <li key={ message._id }>
                                 {
-                                    typeof message.user !== 'undefined' ?
+                                    typeof message.user_name !== 'undefined' ?
                                         <span className="primary-color">{ message.user_name }</span>
                                         :
                                         <span className="primary-color">Stranger</span>
