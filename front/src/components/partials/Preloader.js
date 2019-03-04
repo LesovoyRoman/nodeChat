@@ -14,15 +14,12 @@ const stylesBg = {
     zIndex: -1
 }
 
-const stylesPreloader = {
-    width: '100%',
-}
 
 class Preloader extends Component {
     render() {
         return (
             <div className="preloaderBg" style={stylesBg}>
-                <img src={preloaderImg} style={stylesPreloader} alt={'Image loader'}/>
+                <img src={preloaderImg} alt={'Image loader'}/>
             </div>
         )
     }
