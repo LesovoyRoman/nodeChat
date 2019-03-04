@@ -1,3 +1,5 @@
+@import "./../base/variables";
+
 .list-rooms {
   padding: 20px 0;
   width: 100%;
@@ -17,20 +19,24 @@
     text-decoration: none;
     line-height: 40px;
     font-size: 20px;
-    color: black;
+    color: $chat-text-color;
     display: block;
   }
 }
 
 .create-room {
   font-size: 20px;
-  border: none;
+  background: transparent;
+  display: block;
+  color: $chat-text-color;
+  margin: 10px auto;
   padding: 5px 20px;
   cursor: pointer;
-  float: right;
-  transition: all .2s ease;
+  border: 3px solid $custom-color-border;
+  transition: all .3s ease;
 
   &:hover {
-    background: gray;
+    background: $chat-text-color;
+    color: $app-bg-dark;
   }
 }

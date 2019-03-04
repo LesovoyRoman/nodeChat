@@ -1,0 +1,21 @@
+@import "variables";
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $app-color-primary;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $chat-border-color;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darken($chat-border-color, 20);
+}

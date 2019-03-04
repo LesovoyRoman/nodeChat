@@ -11,6 +11,7 @@
 
 h1, h2, h3 {
   margin: 0 auto 15px auto;
+  color: $app-color-primary
 }
 
 h1 {
@@ -34,4 +35,8 @@ a, p {
 
 .primary-color {
   color: $app-color-primary
+}
+
+.App {
+  background: $app-bg-dark;
 }

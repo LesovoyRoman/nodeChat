@@ -1,13 +1,15 @@
 /*
   App
 */
-$app-color-primary: #7e0d31;
+$app-color-primary: #6983c2;
+$app-bg-dark: #000000e6;
+$custom-color-border: #3e3a3ae6;
 
 
 /*
   Nav
 */
-$nav-color: #cecbcb;
+$nav-color: transparent;
 
 
 /*
@@ -27,5 +29,5 @@ $element-transition: .3s ease;
 /*
   Chat
 */
-$chat-text-color: black;
+$chat-text-color: #eeeeee;
 $chat-border-color: #b0b0b0;

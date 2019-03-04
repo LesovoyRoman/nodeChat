@@ -6,8 +6,7 @@
   display: block;
   margin: 15px auto;
   border: 3px solid $chat-border-color;
-  height: 500px;
-  max-height: 70vh;
+  height: 60vh;
   position: relative;
   padding-bottom: 40px;
 
@@ -45,10 +44,37 @@
     .messageField {
       width: calc(100% - 100px);
       height: 100%;
+      background: transparent;
+      color: $chat-text-color
     }
     .messageSubmit {
       width: 100px;
       height: 100%;
+      background: transparent;
+      border-radius: 0;
+      border: 3px solid $custom-color-border;
+      transition: all .3s ease;
+      color: $chat-text-color;
+      cursor: pointer;
+
+      &:hover {
+        background: $chat-text-color;
+        color: $app-bg-dark;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px){
+  .chatWindow {
+    .list-messages {
+      li {
+        font-size: 14px;
+
+        .message-time {
+          font-size: 8px;
+        }
+      }
     }
   }
 }
