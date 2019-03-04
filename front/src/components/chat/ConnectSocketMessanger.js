@@ -11,7 +11,10 @@ class ConnectSocketMessanger extends Component {
         super(props)
 
         connectSocket(payload => {
-            if(payload.type !== 'message') return;
+            /**
+             * Not message or another chat
+             */
+            if(payload.type !== 'message' || payload.message.chat_id !== store.getState().chatId.chatId) return;
 
             /**
              * Dispatch new message to state
