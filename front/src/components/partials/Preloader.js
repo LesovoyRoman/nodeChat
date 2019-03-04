@@ -10,6 +10,7 @@ const stylesBg = {
     alignItems: 'center',
     justifyContent: 'center',
     top: 0,
+    left: 0,
     zIndex: -1
 }
 
