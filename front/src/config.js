@@ -40,4 +40,12 @@ export const
     /**
      * Audio
      */
-    ALERT_VOICE = alertVoice;
+    ALERT_VOICE = alertVoice,
+
+    /**
+     * Socket events
+     */
+    NEW_MESSAGE_EVENT = 'message',
+    NEW_CHAT_ROOM_EVENT = 'chatRoom'; 
+
+    

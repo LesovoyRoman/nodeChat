@@ -1,6 +1,8 @@
+const CONFIG = require('./config')
+
 module.exports = {
     emitEvent(data) {
-        return io.emit('updateData', data)
+        return io.emit(data.event, data)
     }
 }
 
@@ -12,7 +14,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
-const CONFIG = require('./config')
 const ROUTES = require('./routes/all')
 const db = require('./db');
 const app = express();

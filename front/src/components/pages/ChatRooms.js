@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { getChatRooms, createChatRoom, setNewChat } from "./../../actions/chat";
-import { connectSocket } from './../../socketEventsHandler';
+import { getChatRooms, createChatRoom } from "./../../actions/chat";
 import store from './../../store'
 import Preloader from './../partials/Preloader'
 
@@ -16,15 +15,6 @@ class ChatRooms extends Component {
             errors: {},
             chatRooms: []
         }
-
-        connectSocket(payload => {
-            if(payload.type !== 'chat') return;
-
-            /**
-             * Dispatch new chat to state
-             */
-            store.dispatch(setNewChat({chat: payload.chat, chatRooms: this.state.chatRooms}))
-        })
     }
 
 

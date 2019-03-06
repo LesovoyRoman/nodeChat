@@ -3,6 +3,8 @@ const router = express.Router();
 const socketEmitter = require('../server')
 const routes = require('./all')
 const mongoose = require('mongoose');
+const CONFIG = require('./../config')
+
 
 /**
  * Model
@@ -51,7 +53,7 @@ router.post(routes.ALL_ROUTES.MESSAGES.CREATE_MESSAGE, async (req, res) => {
 
         newMessage.save()
         
-        socketEmitter.emitEvent({message: newMessage, type: 'message'});
+        socketEmitter.emitEvent({message: newMessage, event: CONFIG.NEW_MESSAGE_EVENT});
 
         return res.status(201).send(newMessage)
 

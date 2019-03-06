@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const socketEmitter = require('../server')
 const routes = require('./all')
+const CONFIG = require('./../config')
+
 
 /**
  * Model
@@ -48,7 +50,7 @@ router.post(routes.ALL_ROUTES.CHATS.CREATE_CHAT, async (req, res) => {
 
         newChat.save()
         
-        socketEmitter.emitEvent({chat: newChat, type: 'chat'});
+        socketEmitter.emitEvent({chat: newChat, event: CONFIG.NEW_CHAT_ROOM_EVENT});
 
         return res.status(201).send(newChat)
 
