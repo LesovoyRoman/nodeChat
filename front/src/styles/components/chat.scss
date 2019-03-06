@@ -23,7 +23,7 @@
       color: $chat-text-color;
       padding: 10px 10px 0;
       border-bottom: 1px solid $chat-border-color;
-      word-break: break-all;
+      word-break: break-word;
 
       .message-time {
         font-size: 10px;
