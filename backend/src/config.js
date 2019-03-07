@@ -5,7 +5,7 @@ module.exports = {
      */
     DB_NAME: 'chat',
     DB_PORT: '27017',
-    DOMAIN: 'localhost',
+    DB_HOSTNAME: '127.0.0.1',
 
     /**
      * Back-end port
