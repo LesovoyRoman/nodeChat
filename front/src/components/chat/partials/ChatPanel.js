@@ -12,8 +12,10 @@ class ChatPanel extends Component {
             userName: ''
         }
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = (e) =>
+            this.setState({
+                [e.target.name]: e.target.value
+            })
     }
 
     handleSubmit = async (e) => {
@@ -54,12 +56,6 @@ class ChatPanel extends Component {
             })
         }
     }
-
-    handleInputChange = e =>
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-
 
     render() {
         return (
