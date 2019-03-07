@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { createMessage } from "./../../../actions/messages";
 import { connect } from 'react-redux';
+import store from './../../../store'
+import { setUserName } from './../../../actions/user'
 
 class ChatPanel extends Component {
     constructor(props) {
@@ -12,10 +14,20 @@ class ChatPanel extends Component {
             userName: ''
         }
 
-        this.handleInputChange = (e) =>
+        this.handleChangeUserName = e => {
+            /**
+             * Set userName in store
+             */
+            (async () => {
+                store.dispatch(setUserName(e.target.value))
+            })();
+        }
+
+        this.handleInputChange = (e) => {
             this.setState({
                 [e.target.name]: e.target.value
             })
+        }
     }
 
     handleSubmit = async (e) => {
@@ -59,16 +71,25 @@ class ChatPanel extends Component {
 
     render() {
         return (
-            <form className="chatPanel" onSubmit={this.handleSubmit}>
-                <input type="text"
-                       value={this.state.message}
-                       onChange={this.handleInputChange}
-                       name="message"
-                       className="messageField"
-                       placeholder="Message.."/>
-                <input type="submit"
-                       className="messageSubmit" value="Send" />
-            </form>
+            <>
+                <form className="chatPanel" onSubmit={this.handleSubmit}>
+                    <input type="text"
+                           value={this.state.message}
+                           onChange={this.handleInputChange}
+                           name="message"
+                           className="textField"
+                           placeholder="Message.."/>
+                    <input type="submit"
+                           className="messageSubmit" value="Send" />
+                    <div className="marginTop10"></div>
+                    <input type="text"
+                           value={this.state.userName}
+                           onChange={this.handleChangeUserName}
+                           name="userName"
+                           className="textField width100"
+                           placeholder="Your name: Stranger"/>
+                </form>
+            </>
         )
     }
 }
