@@ -2,20 +2,21 @@
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: $app-color-primary;
+  background: $app-bg-dark;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $chat-border-color;
+  background: $app-color-primary;
+  border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: darken($chat-border-color, 20);
+  background: darken($app-color-primary, 20);
 }

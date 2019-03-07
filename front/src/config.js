@@ -7,7 +7,7 @@ import favNewMessage from './images/alert.png'
 /**
  * Import Audio
  */
-import alertVoice from './files/audio/message-alert.wav'
+import alertVoice from './files/audio/message-alert.mp3'
 
 export const
     /**
