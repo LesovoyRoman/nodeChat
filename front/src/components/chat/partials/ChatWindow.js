@@ -16,7 +16,7 @@ class ChatWindow extends Component {
             errors: {},
             chatId: props.match.params.id,
             userName: '',
-            messages: []
+            messages: false
         };
         
         store.dispatch(setChatId(props.match.params.id));
@@ -47,7 +47,8 @@ class ChatWindow extends Component {
     render() {
         return (
             <>
-                {this.state.messages.length === 0 && <Preloader/>}
+                {this.state.messages === false && <Preloader/>}
+                {this.state.messages !== false && this.state.messages.length === 0 && <p className="pHeader">Messages not found</p>}
                 <ul className="list-messages">
                     {
                         this.state.messages && this.state.messages.map((message, index) => (

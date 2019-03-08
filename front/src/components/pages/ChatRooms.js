@@ -13,7 +13,7 @@ class ChatRooms extends Component {
         
         this.state = {
             errors: {},
-            chatRooms: []
+            chatRooms: false
         }
     }
 
@@ -43,8 +43,8 @@ class ChatRooms extends Component {
     render() {
         return (
             <>
-                {this.state.chatRooms.length === 0 && <Preloader/>}
-                   
+                {this.state.chatRooms === false && <Preloader/>}
+                {this.state.chatRooms !== false && this.state.chatRooms.length === 0 && <p className="pHeader">Rooms not found</p>}
                 <ul className="list-rooms">
                     { this.state.chatRooms && this.state.chatRooms.map((chat, index) => (
                         <li key={ chat._id } className="link-chat" >
