@@ -1,8 +1,7 @@
 import { SET_USER } from "./types";
+import { createAction } from 'redux-actions'
 
-export const setUserName = userName => {
-    return {
-        type: SET_USER,
-        payload: userName
-    }
-}
+/**
+ * Set user name in store
+ */
+export const setUserName = createAction(SET_USER)

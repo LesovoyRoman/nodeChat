@@ -2,15 +2,13 @@ import axios from 'axios';
 import { GET_ERRORS, SET_CHAT, SET_CHAT_ROOMS } from "./types";
 import { API_REQ } from './../config'
 import { API_ROUTES } from './../apiRoutes'
+import { createAction } from 'redux-actions'
 
 export const getChatRooms = async dispatch => {
     try {
         let res = await axios.get(API_REQ + API_ROUTES.CHATS.GET_CHATS)
-        
         dispatch(setChatRooms(res.data.chats))
-        
     } catch (err) {
-        console.error('getChatRooms', err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -29,7 +27,6 @@ export const setNewChat = payload => dispatch => {
             setChatRooms(payload.chatRooms)
         )
     } catch (err) {
-        console.error('setNewChat', err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -48,7 +45,6 @@ export const createChatRoom = payload => async dispatch => {
         })
         return Promise.resolve(res)
     } catch (err) {
-        console.error(API_ROUTES.CHATS.CREATE_CHAT, err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -72,7 +68,6 @@ export const setChatId = chatId => async dispatch => {
                 payload: 'Chat not found'
             })
     } catch (err) {
-        console.error('setChatId', err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -91,7 +86,6 @@ export const checkChatById = payload => async dispatch => {
         })
         return Promise.resolve(res.data.exists)
     } catch (err) {
-        console.error(API_ROUTES.CHATS.CHAT_EXISTS, err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -104,21 +98,11 @@ export const checkChatById = payload => async dispatch => {
  * @param chatId
  * @returns {{type, payload: *}}
  */
-export const setChat = chatId => {
-    return {
-        type: SET_CHAT,
-        payload: chatId
-    }
-}
+export const setChat = createAction(SET_CHAT);
 
 /**
  * Set chat rooms
  * @param chatRooms
  * @returns {{type, payload: *}}
  */
-export const setChatRooms = chatRooms => {
-    return {
-        type: SET_CHAT_ROOMS,
-        payload: chatRooms
-    }
-}
+export const setChatRooms = createAction(SET_CHAT_ROOMS);

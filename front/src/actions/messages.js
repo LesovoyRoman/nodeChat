@@ -2,6 +2,7 @@ import axios from 'axios';
 import { GET_ERRORS, SET_MESSAGES } from "./types";
 import { API_REQ } from './../config'
 import { API_ROUTES } from './../apiRoutes'
+import { createAction } from 'redux-actions'
 
 /**
  * Create new message and send to api
@@ -16,7 +17,6 @@ export const createMessage = payload => async dispatch =>  {
         });
         return Promise.resolve(res)
     } catch (err) {
-        console.error(API_ROUTES.MESSAGES.CREATE_MESSAGE, err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -35,7 +35,6 @@ export const setNewMessage = payload => dispatch => {
             setMessages(payload.messages)
         )
     } catch (err) {
-        console.error('setNewMessage', err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -57,7 +56,6 @@ export const getMessages = chatId => async dispatch => {
             setMessages(res.data.messages)
         )
     } catch (err) {
-        console.error(API_ROUTES.MESSAGES.GET_MESSAGES, err)
         dispatch({
             type: GET_ERRORS,
             payload: err
@@ -70,10 +68,4 @@ export const getMessages = chatId => async dispatch => {
  * @param messages
  * @returns {{type, payload: *}}
  */
-export const setMessages = messages => {
-    //console.log('messages', messages)
-    return {
-        type: SET_MESSAGES,
-        payload: messages
-    }
-}
+export const setMessages = createAction(SET_MESSAGES)
