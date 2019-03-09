@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { getChatRooms, createChatRoom } from "./../../actions/chat";
 import store from './../../store'
-import Preloader from './../partials/Preloader'
+import ChatRoomsPresentation from './ChatRoomsPresentation'
 
 class ChatRooms extends Component {
     constructor(props) {
@@ -43,17 +42,7 @@ class ChatRooms extends Component {
     render() {
         return (
             <>
-                {this.state.chatRooms === false && <Preloader/>}
-                {this.state.chatRooms !== false && this.state.chatRooms.length === 0 && <p className="pHeader">Rooms not found</p>}
-                <ul className="list-rooms">
-                    { this.state.chatRooms && this.state.chatRooms.map((chat, index) => (
-                        <li key={ chat._id } className="link-chat" >
-                            <Link key={ chat._id } to={ '/chat/' + chat._id }>
-                                { chat.name }
-                            </Link>
-                        </li>
-                    )) }
-                </ul>
+                <ChatRoomsPresentation chatRooms={this.state.chatRooms} />
 
                 <button onClick={this.createChatRoom} className="create-room">Create new</button>
             </>

@@ -6,7 +6,7 @@ import { getMessages } from "./../../../actions/messages";
 import { setChatId } from './../../../actions/chat'
 import store from './../../../store'
 import ChatPanel from './ChatPanel'
-import Preloader from './../../partials/Preloader'
+import ChatMessagesPresentation from './ChatMessagesPresentation'
 
 class ChatWindow extends Component {
     constructor(props) {
@@ -47,26 +47,8 @@ class ChatWindow extends Component {
     render() {
         return (
             <>
-                {this.state.messages === false && <Preloader/>}
-                {this.state.messages !== false && this.state.messages.length === 0 && <p className="pHeader">Messages not found</p>}
-                <ul className="list-messages">
-                    {
-                        this.state.messages && this.state.messages.map((message, index) => (
-                            <li key={ message._id }>
-                                {
-                                    typeof message.user_name !== 'undefined' ?
-                                        <span className="primary-color">{ message.user_name }</span>
-                                        :
-                                        <span className="primary-color">Stranger</span>
-                                }: { message.text }
-                                <span className="message-time">{ message.date }</span>
-                            </li>
-                        ))
-                    }
-                </ul>
-
+                <ChatMessagesPresentation messages={this.state.messages} />
                 <ChatPanel />
-
             </>
         )
     }

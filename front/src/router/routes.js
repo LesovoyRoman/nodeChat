@@ -3,7 +3,7 @@
  */
 import HomePage from './../components/pages/Home'
 import Chat from './../components/chat/Chat'
-import ChatRooms from './../components/pages/ChatRooms'
+import ChatRooms from './../components/chatRooms/ChatRoomsContainer'
 
 /**
  * Option "navbarUse" - uses in navbar as links
