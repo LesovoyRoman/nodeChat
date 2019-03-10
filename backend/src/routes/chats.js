@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const socketEmitter = require('../server')
 const routes = require('./all')
-const CONFIG = require('./../config')
-
-
-/**
- * Model
- */
-const Chat = require('../models/Chat');
+const CHAT_RESOLVERS = require('./../resolvers/chat');
 
 /**
  * all chats
@@ -17,15 +10,9 @@ router.get(routes.ALL_ROUTES.CHATS.GET_CHATS, async (req, res) => {
 
     try {
 
-        let chats = await Chat
-            .find({})
-            .sort({
-                date: -1
-            })
+        let chats = await CHAT_RESOLVERS.GET_CHATS();
 
-        return res.status(200).send({
-            chats: chats
-        });
+        return res.status(200).send(chats);
 
     } catch (err) {
 
@@ -41,16 +28,7 @@ router.post(routes.ALL_ROUTES.CHATS.CREATE_CHAT, async (req, res) => {
 
     try {
 
-        let newChat = await new Chat({
-            name: req.body.name.trim().length > 0 ? 
-                req.body.name.trim()
-                :
-                Math.random().toString(36).substr(2, 10) + Math.random().toString(36).substr(2, 10),
-        });
-
-        newChat.save()
-        
-        socketEmitter.emitEvent({chat: newChat, event: CONFIG.NEW_CHAT_ROOM_EVENT});
+        let newChat = await CHAT_RESOLVERS.NEW_CHAT(req.body.name)
 
         return res.status(201).send(newChat)
 
@@ -66,17 +44,9 @@ router.post(routes.ALL_ROUTES.CHATS.CREATE_CHAT, async (req, res) => {
 router.post(routes.ALL_ROUTES.CHATS.CHAT_EXISTS, async (req, res) => {
 
     try {
-        let exists
+        let exists = await CHAT_RESOLVERS.CHECK_CHAT(req.body)
 
-        /**
-         * Find by id or name
-         */
-        req.body.chat_id ?
-            exists = await Chat.findOne({_id: req.body.chat_id})
-            :
-            exists = await Chat.findOne({name: req.body.name})
-
-        return res.status(200).send({exists: exists})
+        return res.status(200).send(exists)
         
     } catch (err) {
         return res.status(500).send(err)

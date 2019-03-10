@@ -17,6 +17,7 @@ const morgan = require('morgan');
 const ROUTES = require('./routes/all')
 const db = require('./db');
 const app = express();
+const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
 
 /**
  * enable cors
@@ -29,14 +30,24 @@ app.use(cors());
 app.use(bodyParser());
 app.use(bodyParser.json());
 
-
 /**
- * Routes
+ * graph-ql or no graph-ql ?
  */
-const chats = require('./routes/chats')
-const messages = require('./routes/message');
-app.use(ROUTES.API_ROUTES_MODELS.CHATS, chats)
-app.use(ROUTES.API_ROUTES_MODELS.MESSAGES, messages);
+switch (CONFIG.GRAPH_QL) {
+    case true:
+        const schema = require('./graphql');
+        const GRAPHQL_CONFIG = require('./graphql/config');
+        app.use(GRAPHQL_CONFIG.GRAPH_URL, bodyParser.json(), graphiqlExpress({ schema }));
+        app.use(graphiqlExpress({endpointURL: GRAPHQL_CONFIG.GRAPHI_URL}))
+        break;
+    default:
+        const chats = require('./routes/chats');
+        const messages = require('./routes/message');
+        app.use(ROUTES.API_ROUTES_MODELS.CHATS, chats);
+        app.use(ROUTES.API_ROUTES_MODELS.MESSAGES, messages);
+        break;
+}
+
 
 /**
  * log http requests

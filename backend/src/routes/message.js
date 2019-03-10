@@ -1,15 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const socketEmitter = require('../server')
 const routes = require('./all')
-const mongoose = require('mongoose');
-const CONFIG = require('./../config')
-
-
-/**
- * Model
- */
-const Message = require('../models/Message');
+const MESSAGE_RESOLVERS = require('./../resolvers/message');
 
 /**
  * retrieve all messages
@@ -21,17 +13,9 @@ router.post(routes.ALL_ROUTES.MESSAGES.GET_MESSAGES, async (req, res) => {
          * Find all messages by chat_id
          * @type {Query}
          */
-        let messages = await Message
-            .find({
-                chat_id: req.body.chat_id
-            })
-            .sort({ 
-                date: -1 
-            })
+        let messages = await MESSAGE_RESOLVERS.GET_MESSAGES(req.body.chat_id)
 
-        return res.status(200).send({
-            messages: messages
-        });
+        return res.status(200).send(messages);
         
     } catch (err) {
         return res.status(500).send(err)
@@ -45,15 +29,7 @@ router.post(routes.ALL_ROUTES.MESSAGES.GET_MESSAGES, async (req, res) => {
 router.post(routes.ALL_ROUTES.MESSAGES.CREATE_MESSAGE, async (req, res) => {
 
     try {
-        let newMessage = await new Message({
-            text: req.body.text,
-            user_name: req.body.user_name,
-            chat_id: req.body.chat_id
-        });
-
-        newMessage.save()
-        
-        socketEmitter.emitEvent({message: newMessage, event: CONFIG.NEW_MESSAGE_EVENT});
+        let newMessage = await MESSAGE_RESOLVERS.NEW_MESSAGE(req.body);
 
         return res.status(201).send(newMessage)
 
