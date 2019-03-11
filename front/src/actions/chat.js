@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_CHAT, SET_CHAT_ROOMS } from "./types";
-import { API_REQ } from './../config'
+import { API_REQ, GRAPH_QL } from './../config'
 import { API_ROUTES } from './../apiRoutes'
 import { createAction } from 'redux-actions'
+import { GRAPH_QL_QUERIES } from './graphqlQueries'
 
 export const getChatRooms = async dispatch => {
     try {
-        let res = await axios.get(API_REQ + API_ROUTES.CHATS.GET_CHATS)
+        let res = !GRAPH_QL ?
+            await axios.post(API_REQ + API_ROUTES.CHATS.GET_CHATS)
+            :
+            (await axios.post(API_REQ, {query: GRAPH_QL_QUERIES.GET_CHATS()})).data;
+
         dispatch(setChatRooms(res.data.chats))
     } catch (err) {
         dispatch({

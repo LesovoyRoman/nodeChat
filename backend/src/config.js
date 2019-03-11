@@ -1,4 +1,5 @@
 module.exports = {
+    APP_PROD: false,
 
     /**
      * Connection datas

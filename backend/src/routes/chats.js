@@ -6,7 +6,7 @@ const CHAT_RESOLVERS = require('./../resolvers/chat');
 /**
  * all chats
  */
-router.get(routes.ALL_ROUTES.CHATS.GET_CHATS, async (req, res) => {
+router.post(routes.ALL_ROUTES.CHATS.GET_CHATS, async (req, res) => {
 
     try {
 
