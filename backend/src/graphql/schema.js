@@ -1,7 +1,7 @@
 module.exports = [`
     type Query {
         messages(chat_id: ID!): [Message]
-        chat(_id: ID!): Chat
+        chats: [Chat]
     }
     
     type Mutation {

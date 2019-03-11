@@ -37,8 +37,10 @@ switch (CONFIG.GRAPH_QL) {
     case true:
         const schema = require('./graphql');
         const GRAPHQL_CONFIG = require('./graphql/config');
-        app.use(GRAPHQL_CONFIG.GRAPH_URL, bodyParser.json(), graphiqlExpress({ schema }));
-        app.use(graphiqlExpress({endpointURL: GRAPHQL_CONFIG.GRAPHI_URL}))
+        app.use(GRAPHQL_CONFIG.GRAPH_URL, bodyParser.json(), graphqlExpress({ schema }));
+        app.use(GRAPHQL_CONFIG.GRAPHI_URL, graphiqlExpress({
+            endpointURL: GRAPHQL_CONFIG.GRAPH_URL
+        }));
         break;
     default:
         const chats = require('./routes/chats');
