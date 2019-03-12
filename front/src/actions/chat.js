@@ -45,9 +45,16 @@ export const setNewChat = payload => dispatch => {
  */
 export const createChatRoom = payload => async dispatch => {
     try {
-        let res = await axios.post(API_REQ + API_ROUTES.CHATS.CREATE_CHAT, {
-            name: payload.name
-        })
+        let name = payload.name
+
+        let res = !GRAPH_QL ?
+            await axios.post(API_REQ + API_ROUTES.CHATS.CREATE_CHAT, {
+                name: name
+            })
+            :
+            (await axios.post(API_REQ, {
+                query: GRAPH_QL_QUERIES.CREATE_CHAT(name)
+            })).data;
         return Promise.resolve(res)
     } catch (err) {
         dispatch({

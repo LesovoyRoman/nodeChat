@@ -70,7 +70,6 @@ const io = require('socket.io')(server);
 
 io.on('connection', async () => {
     console.log("Client Successfully Connected");
-    io.emit('message', "hello world");
 })
 
 mongoose.connect(db.DB, { useNewUrlParser: true }).then(

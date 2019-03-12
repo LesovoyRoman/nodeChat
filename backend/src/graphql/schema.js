@@ -6,7 +6,7 @@ module.exports = [`
     
     type Mutation {
         createMessage(input: MessageInput!): Message
-        createChat(input: ChatInput!): Chat
+        createChat(name: String!): Chat
     }
     
     type Message {
@@ -24,17 +24,13 @@ module.exports = [`
     }
     
     input MessageInput {
-        _id: ID
         text: String
         chat_id: ID
         user_name: String
-        date: String
     }
     
     input ChatInput {
-        _id: ID
         name: String
-        date: String
     }
     
     schema {

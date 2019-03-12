@@ -34,13 +34,13 @@ const GET_CHATS = async () => {
 /**
  * add new chat
  */
-const NEW_CHAT = async (name) => {
+const NEW_CHAT = async (payload) => {
 
     try {
 
         let newChat = await new Chat({
-            name: name.trim().length > 0 ?
-                name.trim()
+            name: payload.name.trim().length > 0 ?
+                payload.name.trim()
                 :
             Math.random().toString(36).substr(2, 10) + Math.random().toString(36).substr(2, 10),
         });

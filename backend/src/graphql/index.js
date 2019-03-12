@@ -8,12 +8,12 @@ const schema =
         typeDefs,
         resolvers: {
             Query: {
-                messages: async(chat_id) => (await MESSAGE_RESOLVERS.GET_MESSAGES(chat_id)).messages,
+                messages: async(args) => (await MESSAGE_RESOLVERS.GET_MESSAGES(args)).messages,
                 chats: async() => (await CHAT_RESOLVERS.GET_CHATS()).chats
             },
             Mutation: {
-                createMessage: async(message) => (await MESSAGE_RESOLVERS.NEW_MESSAGE(message)),
-                createChat: async(chat) => (await CHAT_RESOLVERS.NEW_CHAT(chat))
+                createMessage: async(parent, args) => (await MESSAGE_RESOLVERS.NEW_MESSAGE(args)),
+                createChat: async(parent, args) => (await CHAT_RESOLVERS.NEW_CHAT(args))
             }
         }
 });

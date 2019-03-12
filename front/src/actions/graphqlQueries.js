@@ -1,10 +1,16 @@
 export const GRAPH_QL_QUERIES = {
     GET_MESSAGES: (chat_id) => `
         query {
-            messages(chat_id: ${chat_id}) {
-                text
-                _id
-                date
+            
+        }
+    `,
+    
+    CREATE_CHAT: (payload) => `
+        mutation {
+            createChat(name: "${payload}") {
+               name
+               _id
+               date
             }
         }
     `,

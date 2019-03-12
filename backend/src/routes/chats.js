@@ -28,7 +28,7 @@ router.post(routes.ALL_ROUTES.CHATS.CREATE_CHAT, async (req, res) => {
 
     try {
 
-        let newChat = await CHAT_RESOLVERS.NEW_CHAT(req.body.name)
+        let newChat = await CHAT_RESOLVERS.NEW_CHAT(req.body)
 
         return res.status(201).send(newChat)
 
