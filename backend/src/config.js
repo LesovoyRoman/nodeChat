@@ -22,5 +22,5 @@ module.exports = {
     /**
      * GraphQL
      */
-    GRAPH_QL: true
+    GRAPH_QL: false
 };

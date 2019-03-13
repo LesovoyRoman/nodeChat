@@ -6,7 +6,7 @@ import { setNewChat } from "./actions/chat";
 import store from './store'
 
 import openSocket from 'socket.io-client';
-import { API_REQ, ENDPOINT, NEW_CHAT_ROOM_EVENT, NEW_MESSAGE_EVENT } from './config'
+import { ENDPOINT, NEW_CHAT_ROOM_EVENT, NEW_MESSAGE_EVENT } from './config'
 const socket = openSocket(ENDPOINT);
 
 /**
@@ -20,13 +20,11 @@ let checkObject = data => typeof data === 'object'
  */
 class SocketListeners {
     static init = () => {
-        console.log('init')
 
         /**
          * Emitted new chat room
          */
         socket.on(NEW_CHAT_ROOM_EVENT, (payload) => {
-            console.log('new chat', payload)
             if(checkObject(payload))
                 /**
                  * Dispatch new chat to state

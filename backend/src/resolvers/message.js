@@ -10,7 +10,7 @@ const Message = require('../models/Message');
 /**
  * retrieve all messages
  */
-const GET_MESSAGES = async (chat_id) => {
+const GET_MESSAGES = async (payload) => {
 
     try {
         /**
@@ -19,7 +19,7 @@ const GET_MESSAGES = async (chat_id) => {
          */
         let messages = await Message
             .find({
-                chat_id: chat_id
+                chat_id: payload.chat_id
             })
             .sort({
                 date: -1

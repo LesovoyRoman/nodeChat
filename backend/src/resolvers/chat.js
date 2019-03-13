@@ -61,7 +61,7 @@ const NEW_CHAT = async (payload) => {
  * Check if exists chat
  */
 const CHECK_CHAT = async (payload) => {
-
+    
     try {
         let exists
 
@@ -73,7 +73,7 @@ const CHECK_CHAT = async (payload) => {
             :
             exists = await Chat.findOne({name: payload.name})
 
-        return {exists: exists}
+        return exists
 
     } catch (err) {
         return err

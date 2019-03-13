@@ -45,15 +45,13 @@ export const setNewChat = payload => dispatch => {
  */
 export const createChatRoom = payload => async dispatch => {
     try {
-        let name = payload.name
-
         let res = !GRAPH_QL ?
             await axios.post(API_REQ + API_ROUTES.CHATS.CREATE_CHAT, {
-                name: name
+                name: payload.name
             })
             :
             (await axios.post(API_REQ, {
-                query: GRAPH_QL_QUERIES.CREATE_CHAT(name)
+                query: GRAPH_QL_QUERIES.CREATE_CHAT(payload.name)
             })).data;
         return Promise.resolve(res)
     } catch (err) {
@@ -93,10 +91,16 @@ export const setChatId = chatId => async dispatch => {
  */
 export const checkChatById = payload => async dispatch => {
     try {
-        let res = await axios.post(API_REQ + API_ROUTES.CHATS.CHAT_EXISTS, {
-            chat_id: payload
-        })
-        return Promise.resolve(res.data.exists)
+        let res = !GRAPH_QL ? 
+            (await axios.post(API_REQ + API_ROUTES.CHATS.CHAT_EXISTS, {
+                chat_id: payload
+            })).data
+            :
+            (await axios.post(API_REQ, {
+                query: GRAPH_QL_QUERIES.CHECK_CHAT(payload)
+            })).data.data.checkChat;
+
+        return Promise.resolve(res)
     } catch (err) {
         dispatch({
             type: GET_ERRORS,

@@ -27,7 +27,7 @@ export const
      * GraphQL API
      */
     GRAPH_QL_URL = '/api-graphql',
-    GRAPH_QL = true,
+    GRAPH_QL = false,
 
     /**
      * Request endpoint

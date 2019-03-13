@@ -2,10 +2,11 @@ module.exports = [`
     type Query {
         messages(chat_id: ID!): [Message]
         chats: [Chat]
+        checkChat(chat_id: ID!): Chat
     }
     
     type Mutation {
-        createMessage(input: MessageInput!): Message
+        createMessage(text: String! chat_id: ID! user_name: String): Message
         createChat(name: String!): Chat
     }
     
@@ -21,12 +22,6 @@ module.exports = [`
         _id: ID
         name: String
         date: String
-    }
-    
-    input MessageInput {
-        text: String
-        chat_id: ID
-        user_name: String
     }
     
     input ChatInput {

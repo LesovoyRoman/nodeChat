@@ -13,7 +13,7 @@ router.post(routes.ALL_ROUTES.MESSAGES.GET_MESSAGES, async (req, res) => {
          * Find all messages by chat_id
          * @type {Query}
          */
-        let messages = await MESSAGE_RESOLVERS.GET_MESSAGES(req.body.chat_id)
+        let messages = await MESSAGE_RESOLVERS.GET_MESSAGES(req.body)
 
         return res.status(200).send(messages);
         
