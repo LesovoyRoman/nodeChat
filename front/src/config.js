@@ -22,7 +22,18 @@ export const
      */
     API_PORT = 7777,
     DOMAIN = 'http://localhost',
-    API_REQ = DOMAIN + ':' + API_PORT,
+
+    /**
+     * GraphQL API
+     */
+    GRAPH_QL_URL = '/api-graphql',
+    GRAPH_QL = true,
+
+    /**
+     * Request endpoint
+     */
+    ENDPOINT = DOMAIN + ':' + API_PORT,
+    API_REQ = GRAPH_QL ? ENDPOINT + GRAPH_QL_URL : ENDPOINT,
 
     /**
      * Favs

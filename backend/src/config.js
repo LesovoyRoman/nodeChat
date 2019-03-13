@@ -1,4 +1,5 @@
 module.exports = {
+    APP_PROD: false,
 
     /**
      * Connection datas
@@ -16,5 +17,10 @@ module.exports = {
      * Socket events
      */
     NEW_MESSAGE_EVENT: 'message',
-    NEW_CHAT_ROOM_EVENT: 'chatRoom'
-}
+    NEW_CHAT_ROOM_EVENT: 'chatRoom',
+
+    /**
+     * GraphQL
+     */
+    GRAPH_QL: true
+};

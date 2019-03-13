@@ -6,8 +6,8 @@ import { setNewChat } from "./actions/chat";
 import store from './store'
 
 import openSocket from 'socket.io-client';
-import { API_REQ, NEW_CHAT_ROOM_EVENT, NEW_MESSAGE_EVENT } from './config'
-const socket = openSocket(API_REQ);
+import { ENDPOINT, NEW_CHAT_ROOM_EVENT, NEW_MESSAGE_EVENT } from './config'
+const socket = openSocket(ENDPOINT);
 
 /**
  * If data is object (can be empty)

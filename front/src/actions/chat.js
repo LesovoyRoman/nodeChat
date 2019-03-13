@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { GET_ERRORS, SET_CHAT, SET_CHAT_ROOMS } from "./types";
-import { API_REQ } from './../config'
+import { API_REQ, GRAPH_QL } from './../config'
 import { API_ROUTES } from './../apiRoutes'
 import { createAction } from 'redux-actions'
+import { GRAPH_QL_QUERIES } from './graphqlQueries'
 
 export const getChatRooms = async dispatch => {
     try {
-        let res = await axios.get(API_REQ + API_ROUTES.CHATS.GET_CHATS)
+        let res = !GRAPH_QL ?
+            await axios.post(API_REQ + API_ROUTES.CHATS.GET_CHATS)
+            :
+            (await axios.post(API_REQ, {query: GRAPH_QL_QUERIES.GET_CHATS()})).data;
+
         dispatch(setChatRooms(res.data.chats))
     } catch (err) {
         dispatch({
@@ -40,9 +45,14 @@ export const setNewChat = payload => dispatch => {
  */
 export const createChatRoom = payload => async dispatch => {
     try {
-        let res = await axios.post(API_REQ + API_ROUTES.CHATS.CREATE_CHAT, {
-            name: payload.name
-        })
+        let res = !GRAPH_QL ?
+            await axios.post(API_REQ + API_ROUTES.CHATS.CREATE_CHAT, {
+                name: payload.name
+            })
+            :
+            (await axios.post(API_REQ, {
+                query: GRAPH_QL_QUERIES.CREATE_CHAT(payload.name)
+            })).data;
         return Promise.resolve(res)
     } catch (err) {
         dispatch({
@@ -81,10 +91,16 @@ export const setChatId = chatId => async dispatch => {
  */
 export const checkChatById = payload => async dispatch => {
     try {
-        let res = await axios.post(API_REQ + API_ROUTES.CHATS.CHAT_EXISTS, {
-            chat_id: payload
-        })
-        return Promise.resolve(res.data.exists)
+        let res = !GRAPH_QL ? 
+            (await axios.post(API_REQ + API_ROUTES.CHATS.CHAT_EXISTS, {
+                chat_id: payload
+            })).data
+            :
+            (await axios.post(API_REQ, {
+                query: GRAPH_QL_QUERIES.CHECK_CHAT(payload)
+            })).data.data.checkChat;
+
+        return Promise.resolve(res)
     } catch (err) {
         dispatch({
             type: GET_ERRORS,

@@ -23,7 +23,7 @@ class ChatRooms extends Component {
     
     createChatRoom() {
         let ChatName = prompt('Type room name')
-        store.dispatch(createChatRoom({name: ChatName}))
+        if(ChatName && ChatName.trim().length > 0) store.dispatch(createChatRoom({name: ChatName}))
     }
 
     componentWillReceiveProps(prop){

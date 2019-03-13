@@ -19,6 +19,19 @@ const db = require('./db');
 const app = express();
 
 /**
+ * GraphQL
+ */
+const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
+const schema = require('./graphql');
+const GRAPHQL_CONFIG = require('./graphql/config');
+
+/**
+ * No graphQL routes
+ */
+const chats = require('./routes/chats');
+const messages = require('./routes/message');
+
+/**
  * enable cors
  */
 app.use(cors());
@@ -29,14 +42,23 @@ app.use(cors());
 app.use(bodyParser());
 app.use(bodyParser.json());
 
-
 /**
- * Routes
+ * graph-ql or no graph-ql ?
  */
-const chats = require('./routes/chats')
-const messages = require('./routes/message');
-app.use(ROUTES.API_ROUTES_MODELS.CHATS, chats)
-app.use(ROUTES.API_ROUTES_MODELS.MESSAGES, messages);
+switch (CONFIG.GRAPH_QL) {
+    case true:
+        app.use(GRAPHQL_CONFIG.GRAPH_URL, bodyParser.json(), graphqlExpress({ schema }));
+        if(!CONFIG.APP_PROD) 
+            app.use(GRAPHQL_CONFIG.GRAPHI_URL, graphiqlExpress({
+                endpointURL: GRAPHQL_CONFIG.GRAPH_URL
+            }));
+        break;
+    default:
+        app.use(ROUTES.API_ROUTES_MODELS.CHATS, chats);
+        app.use(ROUTES.API_ROUTES_MODELS.MESSAGES, messages);
+        break;
+}
+
 
 /**
  * log http requests
@@ -48,7 +70,6 @@ const io = require('socket.io')(server);
 
 io.on('connection', async () => {
     console.log("Client Successfully Connected");
-    io.emit('message', "hello world");
 })
 
 mongoose.connect(db.DB, { useNewUrlParser: true }).then(
