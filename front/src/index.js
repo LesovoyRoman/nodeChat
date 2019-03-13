@@ -5,10 +5,11 @@ import * as APP_CONSTS from './config'
 import * as serviceWorker from './serviceWorker';
 
 /**
- * Remove console errors on production
+ * Remove console.log & console.error on production
  */
 if(APP_CONSTS.APP_ENV === APP_CONSTS.PROD_ENV) {
-    console.error = function(){};
+    console.error = () => {};
+    console.log = () => {};
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
