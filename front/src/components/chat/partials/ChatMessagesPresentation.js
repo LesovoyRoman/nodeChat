@@ -21,7 +21,7 @@ class ChatMessagesPresentation extends Component {
                                         :
                                         <span className="primary-color">Stranger</span>
                                 }: { message.text }
-                                <span className="message-time">{ message.date }</span>
+                                <span className="message-time">{ new Date(+message.date).toLocaleString() }</span>
                             </li>
                         ))
                     }
